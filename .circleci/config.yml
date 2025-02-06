@@ -111,10 +111,5 @@ workflows:
               ignore: /.*/
             tags:
               only: /.*/
-          requires:
-            - test-and-build-3-11
-            - test-and-build-3-12
-            - test-and-build-3-13
-            - semantic-release
           context:
             - pip-live
