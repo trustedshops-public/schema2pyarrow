@@ -54,7 +54,7 @@
       "@semantic-release/github",
       {
         "path": "semantic-release",
-        "name": "trustedshops/schema2pyarrow"
+        "name": "trustedshops-public/schema2pyarrow"
       }
     ]
   ],
