@@ -25,8 +25,8 @@ license-files = ["LICENSE"]
 keywords = ["asyncapi", "schema", "jsonschema", "converter", "contract", "data-contract"]
 
 [project.urls]
-Homepage = "https://github.com/trustedshops/schema2pyarrow"
-Issues = "https://github.com/trustedshops/schema2pyarrow/issues"
+Homepage = "https://github.com/trustedshops-public/schema2pyarrow"
+Issues = "https://github.com/trustedshops-public/schema2pyarrow/issues"
 
 [tool.hatch.build.targets.sdist]
 exclude = [

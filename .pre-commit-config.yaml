@@ -33,8 +33,3 @@ repos:
     rev: v3.19.1
     hooks:
       - id: pyupgrade
-
-  - repo: git@github.com:trustedshops/pre-commit-hooks.git
-    rev: v1.4.0
-    hooks:
-      - id: validate-circleci-config
