@@ -2,6 +2,12 @@ version: 2.1
 orbs:
   python: circleci/python@3.0.0
   semantic-release: trustedshops-public/semantic-release@6.0.0
+
+executors:
+  python:
+    docker:
+      - image: cimg/python:3.11.5
+
 jobs:
   test-and-build:
     parameters:
@@ -46,7 +52,7 @@ jobs:
               last_tag=$(git describe --tags `git rev-list --tags --max-count=1`)
               version="${last_tag}.dev${CIRCLE_BUILD_NUM}"
             fi
-            
+
             echo "export VERSION=${version}" >> $BASH_ENV
       - run:
           name: Install dependencies
@@ -91,7 +97,9 @@ workflows:
               only:
                 - main
           requires:
-            - test
+            - test-and-build-3-11
+            - test-and-build-3-12
+            - test-and-build-3-13
             - semantic-release
           context:
             - pip-test
