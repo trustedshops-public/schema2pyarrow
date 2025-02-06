@@ -1,0 +1,7 @@
+- id: check_schema
+  name: checkschema2pyarrow
+  description: Check if the schema can be converted to pyarrow from our side
+  entry: schema2pyarrow
+  language: python
+  files: \.yaml$
+  exclude: ^\.pre-commit-.*\.yaml$

@@ -1,0 +1,40 @@
+asyncapi: 2.6.0
+channels:
+  example-event:
+    publish:
+      message:
+        oneOf:
+          - $ref: '#/components/messages/Event'
+components:
+  messages:
+    Event:
+      description: An example event
+      payload:
+        type: object
+        additionalProperties: false
+        required:
+          - data
+        properties:
+          data:
+            type: object
+            required:
+              - id
+            properties:
+              id:
+                type: array
+                description: example array with complex object data structure
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      description: "Example data"
+                      example: "example-string"
+                    test_1:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          name:
+                            type: string
+                            example: "Example"

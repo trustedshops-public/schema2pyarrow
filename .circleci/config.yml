@@ -1,0 +1,97 @@
+version: 2.1
+orbs:
+  python: circleci/python@3.0.0
+  semantic-release: trustedshops-public/semantic-release@6.0.0
+jobs:
+  test-and-build:
+    parameters:
+      version:
+        type: string
+        description: python version that should be tested
+    docker:
+      - image: cimg/python:<<parameters.version>>
+    steps:
+      - checkout
+      - python/install-packages:
+          pkg-manager: pip
+          pip-dependency-file: .circleci/requirements.txt
+      - python/install-packages:
+          pkg-manager: pip-dist
+          pypi-cache: false
+      - run:
+          name: Run tests
+          command: mkdir logs && pytest -v --junitxml=logs/test_results.xml
+      - store_test_results:
+          path: logs/test_results.xml
+      - run:
+          name: Build package
+          command: hatchling build
+  pip-publish:
+    executor: python
+    parameters:
+      repository:
+        type: string
+        description: Name of the repository to publish to
+    steps:
+      - checkout
+      - run:
+          name: Set version
+          command: |
+            if [ ! -z "$CIRCLE_TAG" ]
+            then
+              echo "Building for tag"
+              version="${CIRCLE_TAG}"
+            else
+              echo "Building for snapshot"
+              last_tag=$(git describe --tags `git rev-list --tags --max-count=1`)
+              version="${last_tag}.dev${CIRCLE_BUILD_NUM}"
+            fi
+            
+            echo "export VERSION=${version}" >> $BASH_ENV
+      - run:
+          name: Install dependencies
+          command: |
+            pip install -r .circleci/requirements.txt
+      - run:
+          name: Build package
+          command: hatchling build
+      - run:
+          name: Upload package
+          command: twine upload --repository <<parameters.repository>> dist/*
+workflows:
+  continious:
+    jobs:
+      - test-and-build:
+          version: "3.11"
+          name: test-and-build-3-11
+      - test-and-build:
+          version: "3.12"
+          name: test-and-build-3-12
+      - test-and-build:
+          version: "3.13"
+          name: test-and-build-3-13
+      - semantic-release/with_existing_config:
+          name: semantic-release
+          additional_packages: "@google/semantic-release-replace-plugin"
+          requires:
+            - test-and-build-3-11
+            - test-and-build-3-12
+            - test-and-build-3-13
+          context:
+            - semantic-release
+          filters:
+            branches:
+              only:
+                - main
+      - pip-publish:
+          name: pip-publish-testpypi
+          repository: testpypi
+          filters:
+            branches:
+              only:
+                - main
+          requires:
+            - test
+            - semantic-release
+          context:
+            - pip-test

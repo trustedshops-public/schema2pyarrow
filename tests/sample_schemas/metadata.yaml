@@ -1,0 +1,28 @@
+asyncapi: 2.5.0
+channels:
+  example-metadata:
+    publish:
+      message:
+        oneOf:
+          - $ref: '#/components/messages/metadata'
+components:
+  messages:
+    metadata:
+      description: An example metadata object
+      payload:
+        type: object
+        required:
+          - metadata
+        properties:
+          metadata:
+            type: object
+            additionalProperties: false
+            required:
+              - operation
+              - publishedAt
+            properties:
+              operation:
+                type: string
+              publishedAt:
+                type: string
+                format: datetime

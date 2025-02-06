@@ -1,0 +1,61 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "schema2pyarrow"
+version = "1.0.0"
+authors = [
+  { name="Data Platform Team Trustedshops", email="data@trustedshops.com" },
+]
+description = "A schema converter for asyncapi to pyarrow and jsonschema to pyarrow"
+readme = "README.md"
+requires-python = ">=3.11"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "pyyaml",
+    "pyarrow",
+    "typer"
+]
+license = "MIT"
+license-files = ["LICENSE"]
+keywords = ["asyncapi", "schema", "jsonschema", "converter", "contract", "data-contract"]
+
+[project.urls]
+Homepage = "https://github.com/trustedshops/schema2pyarrow"
+Issues = "https://github.com/trustedshops/schema2pyarrow/issues"
+
+[tool.hatch.build.targets.sdist]
+exclude = [
+    ".git",
+    ".github",
+    ".vscode",
+    ".pytest_cache",
+    ".mypy_cache",
+    ".tox",
+    ".hatch",
+    ".idea",
+    "dist",
+    "build",
+    "venv",
+    "env",
+    "env-*",
+    "*.egg-info",
+    "*.egg",
+    "*.pyc",
+    "*.pyo",
+    "*.pyd",
+    "__pycache__",
+    ".circleci",
+    ".gitignore",
+    "logs",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["schema2pyarrow"]
+
+[project.scripts]
+schema2pyarrow = "schema2pyarrow.schema2pyarrow_cli:app"

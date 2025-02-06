@@ -1,0 +1,117 @@
+asyncapi: 2.5.0
+channels:
+  example-event:
+    publish:
+      message:
+        oneOf:
+          - $ref: '#/components/messages/Event'
+          - $ref: '#/components/messages/Event2'
+components:
+  messages:
+    Event:
+      description: An example event
+      payload:
+        type: object
+        additionalProperties: false
+        required:
+          - example
+          - metadata
+        properties:
+          metadata:
+            $ref: '#/components/schemas/defaultMetadata'
+          example:
+            type: object
+            required:
+              - id
+              - updatedAt
+              - enabled
+              - Configuration
+            properties:
+              id:
+                type: string
+                minLength: 1
+                example: "id-123"
+              updatedAt:
+                type: string
+                description: ISO-8601 format example
+                format: datetime
+                example: "2022-08-10T17:09:19.000Z"
+              enabled:
+                type: boolean
+                description: sample boolean property
+                example: true
+              Configuration:
+                type: object
+                description: Nested settings example
+                required:
+                  - sampleInt
+                  - sampleTime
+                properties:
+                  sampleInt:
+                    type: number
+                    description: |
+                      Sample number to demonstrate converting to integer from an example
+                    minimum: 0
+                    maximum: 180
+                    example: 7
+                  sampleTime:
+                    type: string
+                    description: The time at which the event will be sent (uses 24h UTC format without time zone)
+                    format: "^([0-1][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]Z$"
+                    example: "07:15:00Z"
+    Event2:
+      description: A second example event
+      payload:
+        type: object
+        additionalProperties: false
+        required:
+          - example
+          - metadata
+        properties:
+          metadata:
+            $ref: '#/components/schemas/defaultMetadata'
+          example:
+            type: object
+            required:
+              - id
+              - test-str
+            properties:
+              id:
+                type: string
+                minLength: 1
+                example: "id-123"
+              test-str:
+                type: string
+                example: "test-123"
+  schemas:
+    defaultMetadata:
+      type: object
+      additionalProperties: false
+      required:
+        - operation
+        - publishedAt
+        - sampleArray
+      properties:
+        operation:
+          type: string
+          enum:
+            - DATA
+            - LOAD
+            - DELETE
+          example: DATA
+          description: >-
+            DATA is a regular event.
+            LOAD is used for initial loads and reloads.
+            DELETE is used if an object is deleted in the source system.
+        publishedAt:
+          type: string
+          format: datetime
+          description: >-
+            Point in time when the message was published by the source system.
+            ISO-8601 Format in UTC
+          example: "2021-11-05T06:00:00.000Z"
+        sampleArray:
+          type: array
+          items:
+            type: string
+            example: example.id
