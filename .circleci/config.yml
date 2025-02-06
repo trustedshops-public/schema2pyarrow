@@ -103,3 +103,18 @@ workflows:
             - semantic-release
           context:
             - pip-test
+      - pip-publish:
+          name: pip-publish-pypi
+          repository: pypi
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /.*/
+          requires:
+            - test-and-build-3-11
+            - test-and-build-3-12
+            - test-and-build-3-13
+            - semantic-release
+          context:
+            - pip-live
