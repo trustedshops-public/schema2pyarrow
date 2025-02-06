@@ -34,7 +34,7 @@ Using this library provides several benefits, including:
 
 Install this package via pip:
 ```
-pip install git+ssh://git@github.com/trustedshops/schema2pyarrow.git
+pip install schema2pyarrow
 ```
 
 ## Development
