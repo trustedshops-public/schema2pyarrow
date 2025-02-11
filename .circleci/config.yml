@@ -68,6 +68,9 @@ workflows:
   continious:
     jobs:
       - test-and-build:
+          version: "3.10"
+          name: test-and-build-3-10
+      - test-and-build:
           version: "3.11"
           name: test-and-build-3-11
       - test-and-build:
@@ -80,6 +83,7 @@ workflows:
           name: semantic-release
           additional_packages: "@google/semantic-release-replace-plugin"
           requires:
+            - test-and-build-3-10
             - test-and-build-3-11
             - test-and-build-3-12
             - test-and-build-3-13
@@ -97,9 +101,6 @@ workflows:
               only:
                 - main
           requires:
-            - test-and-build-3-11
-            - test-and-build-3-12
-            - test-and-build-3-13
             - semantic-release
           context:
             - pip-test

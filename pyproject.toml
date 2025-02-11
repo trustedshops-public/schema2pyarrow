@@ -10,7 +10,7 @@ authors = [
 ]
 description = "A schema converter for asyncapi to pyarrow and jsonschema to pyarrow"
 readme = "README.md"
-requires-python = ">=3.11"
+requires-python = ">=3.10"
 classifiers = [
     "Programming Language :: Python :: 3",
     "Operating System :: OS Independent",
