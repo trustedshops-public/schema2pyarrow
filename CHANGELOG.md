@@ -1,3 +1,10 @@
+## [1.1.2](https://github.com/trustedshops-public/schema2pyarrow/compare/1.1.1...1.1.2) (2025-02-11)
+
+
+### Bug Fixes
+
+* include python 3.10 as valid python version ([e3e9127](https://github.com/trustedshops-public/schema2pyarrow/commit/e3e9127d93f01a6f7c5fcac6ace3f45e2fc44250))
+
 ## [1.1.1](https://github.com/trustedshops-public/schema2pyarrow/compare/1.1.0...1.1.1) (2025-02-06)
 
 
