@@ -176,7 +176,11 @@ def _dict_to_pyarrow_schema(schema: dict) -> list[Field]:
         schema_iteration = schema["allOf"]
 
     for s in schema_iteration:
-        if "properties" not in s:
+        if "properties" in s:
+            fields = s.get("properties").items()
+        elif "additionalProperties" in s:
+            fields = s.get("additionalProperties").get("properties").items()
+        else:
             raise SchemaValidationError(
                 {
                     "message": "Please further define contents of the object type via 'properties'.",
@@ -184,7 +188,7 @@ def _dict_to_pyarrow_schema(schema: dict) -> list[Field]:
                 }
             )
 
-        for field_name, field_properties in s.get("properties").items():
+        for field_name, field_properties in fields:
             # the __line__ field is used for reporting the problematic line and should not be analyzed
             if field_name == "__line__":
                 continue
