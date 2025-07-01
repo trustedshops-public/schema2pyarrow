@@ -16,7 +16,7 @@ complex_schema = [
         pa.struct(
             [
                 ("id", pa.string()),
-                ("updatedAt", pa.timestamp("ms")),
+                ("updatedAt", pa.timestamp("ns")),
                 ("enabled", pa.bool_()),
                 pa.field(
                     "Configuration",

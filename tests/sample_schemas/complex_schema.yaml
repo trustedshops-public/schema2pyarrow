@@ -34,8 +34,8 @@ components:
               updatedAt:
                 type: string
                 description: ISO-8601 format example
-                format: datetime
-                example: "2022-08-10T17:09:19.000Z"
+                format: datetime[ns]
+                example: "2022-08-10T17:09:19.000000000Z"
               enabled:
                 type: boolean
                 description: sample boolean property
