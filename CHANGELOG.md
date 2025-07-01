@@ -1,3 +1,10 @@
+## [1.1.4](https://github.com/trustedshops-public/schema2pyarrow/compare/1.1.3...1.1.4) (2025-07-01)
+
+
+### Bug Fixes
+
+* add more timetamp precision ([#4](https://github.com/trustedshops-public/schema2pyarrow/issues/4)) ([5f756fe](https://github.com/trustedshops-public/schema2pyarrow/commit/5f756fe2b2aa7355528e7ce249c653c73da1c260))
+
 ## [1.1.3](https://github.com/trustedshops-public/schema2pyarrow/compare/1.1.2...1.1.3) (2025-05-05)
 
 
