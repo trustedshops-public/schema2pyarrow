@@ -33,6 +33,8 @@ def map_format(field_format: str, line_nr: int) -> pa.Field:
         return pa.timestamp("s")
     elif field_format == "datetime[ms]" or field_format == "date-time[ms]":
         return pa.timestamp("ms")
+    elif field_format == "datetime[ns]" or field_format == "date-time[ns]":
+        return pa.timestamp("ns")
     elif field_format == "time":
         return pa.time32("s")
     elif field_format == "^([0-1][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]Z$":
