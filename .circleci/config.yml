@@ -6,7 +6,7 @@ orbs:
 executors:
   python:
     docker:
-      - image: cimg/python:3.13.6
+      - image: cimg/python:3.13.7
 
 jobs:
   test-and-build:
