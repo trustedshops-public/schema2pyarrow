@@ -90,26 +90,33 @@ def extract_field_properties(field_properties: dict) -> tuple:
 
 
 def find_event(schema: dict) -> list:
-    name = next(iter(schema["channels"]))
-    message_name = schema["channels"][name]
-
-    # support the publish.message.0 syntax with multiple messages instead of oneOf
     messages = []
-    if "messages" in message_name:
-        for publish_name in message_name["messages"]:
-            if publish_name == "__line__":
-                continue
-            messages.append(message_name["messages"][publish_name])
-        return messages
 
-    message = message_name["publish"]["message"]
+    for channel_name, channel_data in schema.get("channels", {}).items():
+        if channel_name == "__line__":
+            continue
 
-    # oneOf is used to provide lists of message-schemas
-    # this is a fallback if the oneOf syntax is not used
-    if "oneOf" not in message:
-        return [message]
+        # support the publish.message.0 syntax with multiple messages
+        if "messages" in channel_data:
+            for publish_name, message_def in channel_data["messages"].items():
+                if publish_name == "__line__":
+                    continue
+                messages.append(message_def)
+            continue
 
-    return message["oneOf"]
+        message = channel_data["publish"]["message"]
+
+        if not message:
+            continue
+
+        # oneOf is used to provide lists of message-schemas
+        # this is a fallback if the oneOf syntax is not used
+        if "oneOf" in message:
+            messages.extend(message["oneOf"])
+        else:
+            messages.append(message)
+
+    return messages
 
 
 def get_value_by_path(d: dict, async_path: str) -> dict:
