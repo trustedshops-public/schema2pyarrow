@@ -1,3 +1,10 @@
+## [1.1.5](https://github.com/trustedshops-public/schema2pyarrow/compare/1.1.4...1.1.5) (2025-09-02)
+
+
+### Bug Fixes
+
+* allow the definition of multiple channels that form one message schema ([#11](https://github.com/trustedshops-public/schema2pyarrow/issues/11)) ([7c15039](https://github.com/trustedshops-public/schema2pyarrow/commit/7c15039b2f1da5a229c9cff50ec3dd16bce736cd))
+
 ## [1.1.4](https://github.com/trustedshops-public/schema2pyarrow/compare/1.1.3...1.1.4) (2025-07-01)
 
 
