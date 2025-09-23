@@ -61,7 +61,7 @@ def map_datatypes(
     elif field_type == "number":
         if isinstance(field_example, int):
             return pa.int64()
-        if isinstance(field_example, float):
+        else:
             return pa.float64()
     elif field_type == "boolean":
         return pa.bool_()
