@@ -23,6 +23,7 @@ complex_schema = [
                     pa.struct(
                         [
                             ("sampleInt", pa.int64()),
+                            ("sampleFloatWithoutExample", pa.float64()),
                             ("sampleTime", pa.string()),
                         ]
                     ),

@@ -45,6 +45,7 @@ components:
                 description: Nested settings example
                 required:
                   - sampleInt
+                  - sampleFloatWithoutExample
                   - sampleTime
                 properties:
                   sampleInt:
@@ -54,6 +55,8 @@ components:
                     minimum: 0
                     maximum: 180
                     example: 7
+                  sampleFloatWithoutExample:
+                    type: number
                   sampleTime:
                     type: string
                     description: The time at which the event will be sent (uses 24h UTC format without time zone)
