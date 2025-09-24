@@ -1,3 +1,10 @@
+## [1.1.6](https://github.com/trustedshops-public/schema2pyarrow/compare/1.1.5...1.1.6) (2025-09-24)
+
+
+### Bug Fixes
+
+* default to float64 if no example is given ([#13](https://github.com/trustedshops-public/schema2pyarrow/issues/13)) ([295d862](https://github.com/trustedshops-public/schema2pyarrow/commit/295d8628c3c5eaa5da36662000b20736d3f56ee3))
+
 ## [1.1.5](https://github.com/trustedshops-public/schema2pyarrow/compare/1.1.4...1.1.5) (2025-09-02)
 
 
