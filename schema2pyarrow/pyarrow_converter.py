@@ -5,6 +5,7 @@ from schema2pyarrow.exceptions import (
     UnsupportedTypeError,
     UnsupportedFormatError,
 )
+from schema2pyarrow.resolve_refs import recursive_resolve_refs
 
 
 def map_format(field_format: str, line_nr: int) -> pa.Field:
@@ -119,27 +120,8 @@ def find_event(schema: dict) -> list:
     return messages
 
 
-def get_value_by_path(d: dict, async_path: str) -> dict:
-    keys = async_path.lstrip("#/").split("/")
-
-    for part in keys:
-        if part:
-            d = d.get(part)
-            if d is None:
-                raise ValueError(f"Path {'/'.join(keys)} not found.")
-
-    return d
-
-
 def async_api_to_pyarrow_schema(schema: dict) -> pa.Schema:
-    origin_schema = schema
-
-    # recursively resolve the schema until no $refs are present
-    # this is when the schema stabilizes and no changes happen anymore
-    previous_schema = None
-    while previous_schema != schema:
-        previous_schema = schema
-        schema = resolve_internal_refs(schema, origin_schema)
+    schema = recursive_resolve_refs(schema)
 
     t = find_event(schema)
 
@@ -153,27 +135,11 @@ def async_api_to_pyarrow_schema(schema: dict) -> pa.Schema:
     return pa.unify_schemas(schemas)
 
 
-def resolve_internal_refs(data: dict | list, root: dict) -> dict | list[dict]:
-    """
-    Resolve ref-references. This only works if the references are resolved in the same file.
-    """
-    if isinstance(data, dict):
-        if "$ref" in data:
-            ref_path = data["$ref"]
-            return get_value_by_path(root, ref_path)
-
-        return {key: resolve_internal_refs(value, root) for key, value in data.items()}
-
-    elif isinstance(data, list):
-        return [resolve_internal_refs(item, root) for item in data]
-
-    return data
-
-
 def dict_to_pyarrow_schema(schema: dict) -> pa.schema:
     """
     This is the wrapper for the recursive _dict_to_pyarrow_schema function.
     """
+    schema = recursive_resolve_refs(schema)
 
     return pa.schema(_dict_to_pyarrow_schema(schema))
 
