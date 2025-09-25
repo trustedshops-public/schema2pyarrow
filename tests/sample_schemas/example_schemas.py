@@ -34,8 +34,15 @@ complex_schema = [
 ]
 
 simple_schema = [
-    ("firstName", pa.string()),
-    ("lastName", pa.string()),
+    pa.field(
+        "nameDefinitions",
+        pa.struct(
+            [
+                ("firstName", pa.string()),
+                ("lastName", pa.string()),
+            ]
+        ),
+    ),
     ("age", pa.int64()),
 ]
 
