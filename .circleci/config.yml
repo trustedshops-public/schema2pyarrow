@@ -1,12 +1,12 @@
 version: 2.1
 orbs:
   python: circleci/python@3.3.0
-  semantic-release: trustedshops-public/semantic-release@6.0.0
+  semantic-release: trustedshops-public/semantic-release@6.1.0
 
 executors:
   python:
     docker:
-      - image: cimg/python:3.13.8
+      - image: cimg/python:3.14.0
 
 jobs:
   test-and-build:
