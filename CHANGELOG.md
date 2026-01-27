@@ -1,3 +1,10 @@
+## [1.2.0](https://github.com/trustedshops-public/schema2pyarrow/compare/1.1.6...1.2.0) (2026-01-27)
+
+
+### Features
+
+* resolve references also in dict-like structures ([#14](https://github.com/trustedshops-public/schema2pyarrow/issues/14)) ([658bc65](https://github.com/trustedshops-public/schema2pyarrow/commit/658bc654e1c167615c8b0d50d6a4f1891dc15035))
+
 ## [1.1.6](https://github.com/trustedshops-public/schema2pyarrow/compare/1.1.5...1.1.6) (2025-09-24)
 
 
